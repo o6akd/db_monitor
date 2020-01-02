@@ -1,4 +1,7 @@
 # db_monitor
 
-- Monitor database changes. 
-    - Hello
+- Monitor changes in a database. 
+    
+- Limitations:
+    - Currently, it can only track changes in numerical columns. 
+    - Only statistical differences are stored. 
