@@ -10,6 +10,7 @@ import connector
 from re import search
 from datetime import datetime
 
+
 def get_table_names(cursor):
     result = cursor.execute("SELECT name FROM sqlite_master WHERE type='table';").fetchall()
     table_names = sorted(list(zip(*result))[0])
@@ -28,9 +29,9 @@ def get_col_names(table_names,cur):
 import numpy
 def describe_tables(table_names, db):
     snap_current = {}
-    for table in table_names:
+    for table in table_names: #create a dictionary of decriptions for each table in the database
         current_table = pd.read_sql_query("SELECT * FROM %s;" % table, db) #pandas acts weird trying to pass parameters this should be fixed
-        current_table = current_table.astype(float)
+        current_table = current_table.astype(float) #convert vlaues of pandas frame to float
         current_table= current_table.loc[:,~current_table.columns.str.contains('id')]     
         snap_current[table] = (current_table.describe()).to_dict() #describe the whole table and convert to json object
     return snap_current #a dictionary
@@ -44,11 +45,18 @@ def configure():
         print("Configuration (config.json) file is not found! ")
     return config
 
+def save_snap(snap_current): #save the snapshot to old file
+    with open('./snapshots/snap.json') as data_file: #open the current snapshot file
+        old_data = json.load(data_file)
+    old_data = [snap_current] + old_data  #old data is a list of json objects so snap current must be inside a list.
+    with open('./snapshots/snap.json', 'w+') as data_file: #append the current snapshot to the existing json object
+        json.dump(old_data, data_file, indent=2)
+
 def main():
     config = configure() #configuration information stored as json
     db_name = config['source'] #get database name from the config file
     db =  connector.create_connection(r"%s"%db_name) # returns sqlite3.connect(db_file)
-    cur = db.cursor()
+    cur = db.cursor() #create a db cursor
     table_names = get_table_names(cur) #get table names
     #### get descriptions
     snap_current = describe_tables(table_names, db) # current snapshot of the database stored as a table_name: description key/value pair 
@@ -57,12 +65,9 @@ def main():
     now = datetime.now()
     # dd/mm/YY H:M:S
     dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-    snap_current['time'] = dt_string
-    with open('./snapshots/snap.json', 'a+') as outfile: #save the current snapshot to a json file 
-        json.dump(snap_current, outfile, indent=2)
+    snap_current['timestamp'] = dt_string
+    save_snap(snap_current)
     db.close() #close the database 
 
 if __name__ == "__main__":
     main()
-    with open("snapshots/snap.json") as json_file:
-        snap_pre = json.load(json_file) # previous snapshot
