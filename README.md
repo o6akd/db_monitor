@@ -1,7 +1,7 @@
 # db_monitor
 
 - Monitor changes in a database
-- Usage: 
+- Directions: 
   - use crontab to schedule app.py to run 
   - enter database credentials and source to config.json file
   
