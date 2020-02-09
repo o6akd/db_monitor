@@ -1,0 +1,30 @@
+<%include ./partials/header%>
+<% include ./partials/lennyStyle%>
+  <% include ./partials/messages %>
+<div id="body">
+    <div id="first">
+      <h1 id='lenny' style="font-size:100px;text-align:center;">( ͡° ͜ʖ ͡°)</h1>
+      <p id='dialog' style="font-size:25px;text-align:center;">Hi.</p>
+    </div>
+    <div id="third">
+    </div>
+    <br>
+    <br>
+    <div class="container">
+    <div id="second">
+         
+     
+      <label class="btn btn-lg btn-Default btn-inline btn-file" style="background-color: buttonface">
+          BROWSE <input type="file" name="file" id="clientFile" class="upload" style="display: none;">
+      </label>
+      <button onclick="filePost()" class="btn btn-lg btn-Default btn-inline">UPLOAD</button>
+     <p id='demo'></p>
+    </div>
+  </div>
+    <div id="clear">
+    </div>
+  </div>
+  
+  <%include ./partials/lennyscripts%>
+
+  <%include ./partials/footer%>

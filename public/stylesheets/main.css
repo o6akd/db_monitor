@@ -1,0 +1,36 @@
+#body{
+    width: auto;
+    margin: auto;
+  }
+  #second {
+   width: 100%;
+   transition: width 1s,  border-style 2s ease;
+   float: left;
+   height: 300px;
+   text-align:center;
+   }
+
+   #first {
+       width: 100%;
+       float: left;
+       transition: width 1s;
+       height: 300px;
+     }
+   #third {
+       width: 0%;
+       float: left;
+       transition: width 1s, opacity 2s ease, border 1s ease;
+       height: 0px;
+       border-color: black;
+       opacity: 0;
+         }
+  #clear{
+     clear: both;
+  }
+
+  #myFile{
+    transition: margin-top 2s;
+    position:relative;
+    margin-top: 50px;
+    transition-delay: 0.4s;
+  }

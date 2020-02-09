@@ -1,0 +1,101 @@
+<script type="text/javascript">
+
+    let dialog = {
+      i:0,
+      txt:"",
+      speed:50,
+      state :"Upload data to start.",
+      element : document.getElementById("dialog")
+    }
+  //param word: some text
+  //function conFlow(word): conversation flow engine
+  
+  function other(cflow,word){
+    cflow(word);
+  }
+  function conflow(word){
+    other(conFlow,word);
+  }
+  function conFlow(word){
+    dialog.state = word;
+    dialog.element.innerHTML = "";
+    dialog.i = 0 ;
+    return typeWriter();
+  };
+  var txt = dialog.state;
+  var speed = 50;
+  function typeWriter() {
+    if (dialog.i < dialog.state.length) {
+      document.getElementById("dialog").innerHTML += dialog.state.charAt(dialog.i);
+      dialog.i ++;
+      setTimeout(typeWriter, speed);
+    }
+  }
+  function blink2(){
+     document.getElementById('lenny').innerText = "( ͡° ͜ʖ ͡°)";
+     setTimeout(blink, Math.floor(Math.random() * 6000)+225);
+   };
+  
+  function blink(){
+      document.getElementById('lenny').innerText = "( ͡~ ͜ʖ ͡~)";
+      setTimeout(blink2, 225);
+    };
+  blink();
+  function changeLocations(){
+      document.getElementById("first").style.width = '50%';
+      document.getElementById("first").style.float = 'left';
+      document.getElementById("third").style.width = "45%";
+      document.getElementById("third").style.height = "300px";
+      document.getElementById("third").style.opacity = "1";
+        conflow("Goody...");
+        conflow("Let me take a look at this.");
+    };
+  
+  function filePost(){
+    var file = document.getElementById('clientFile').files[0];
+    var formData = new FormData();
+    formData.append("file", file);
+    
+    var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+             // Typical action to be performed when the document is ready:
+            loadData();
+          }
+      };
+    xhttp.open("POST", "/upload", true);
+    xhttp.send(formData);
+  };
+  
+  var results = '';
+    function loadData(){
+      var xhttp = new XMLHttpRequest();
+      xhttp.responseType = 'json';
+      xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+             // Typical action to be performed when the document is ready:
+             results = xhttp.response;
+            // var resultList = JSON.parse(results);
+             var br = '</br>';
+             var html_to_show = ''
+            /* for (var key in resultList) {
+                  if (resultList.hasOwnProperty(key)) {
+                      console.log(key + " -> " + resultList[key]);
+                      //show the max of each variable 
+                      html_to_show = html_to_show + "The max "+ key.toString()+" is "+ resultList[key]['max'].toString()+ br;
+                    }
+              }*/
+               /* for (var key in resultList) {
+                if (resultList.hasOwnProperty(key)) {
+                 html_to_show = html_to_show + key.toString() + " > > > > "  + resultList[key] + br; 
+               }
+              }*/
+            changeLocations();
+             document.getElementById("third").innerHTML = results;
+          }
+      };
+      xhttp.open("GET", "data", true);
+      xhttp.send();
+    };
+    //dialog object: holds the state of conversation and dialog elements
+  </script>

@@ -1,0 +1,77 @@
+<style media="screen">
+    #body{
+      width: auto;
+      margin: auto;
+    }
+    #second {
+     width: 100%;
+     transition: width 1s,  border-style 2s ease;     
+     height: 300px;
+     text-align:center;
+     }  
+     #first {
+         width: 100%;
+         float: left;
+         transition: width 1s;
+         height: 300px;
+       }
+     #third {
+         width: 0%;
+         float: left;
+         transition: width 1s, opacity 2s ease, border 1s ease;
+         height: 0px;
+         border-color: black;
+         opacity: 0;
+           }
+    #clear{
+       clear: both;
+    }
+  
+    #myFile{
+      transition: margin-top 2s;
+      position:relative;
+      margin-top: 50px;
+      transition-delay: 0.4s;
+    }
+   
+    #clientFile{
+      display: inline;
+    }
+    .upload {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+.upload + label {
+  padding: 10px 16px;
+    font-size: 18px;
+    line-height: 1.33333;
+    border-radius: 6px;
+    font-weight: 400;
+    margin-bottom: 0;
+    text-align: center;
+    white-space: nowrap;
+    background-image: none;
+    color: inherit;
+    background-color: buttonface;
+    border: 1px solid transparent;
+    vertical-align: middle;
+    display: inline-block;
+    font-family: inherit;
+    text-transform: none;    
+    text-rendering: auto;    
+    letter-spacing: normal;
+    word-spacing: normal;    
+    text-indent: 0px;
+    text-shadow: none;
+    box-sizing: border-box;
+}
+
+
+.upload + label {
+	cursor: pointer; /* "hand" cursor */
+}
+    </style>
